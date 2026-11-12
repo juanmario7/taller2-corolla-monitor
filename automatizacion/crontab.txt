@@ -1,0 +1,13 @@
+# Monitor Toyota Corolla — VM Oracle Cloud (Ubuntu 24.04)
+# La zona horaria del sistema es America/Bogota (timedatectl), así que las horas
+# de cron son hora de Colombia. Instalar con:  crontab automatizacion/crontab.txt
+#
+# 12–15 nov: ejecuciones de prueba (pipeline.py las marca como PRUEBA)
+# 15 nov 23:00: se archivan las pruebas y se vacía la base
+# 16–21 nov: periodo evaluado
+SHELL=/bin/bash
+APP=/home/ubuntu/taller2-corolla-monitor
+
+0 8  12-21 11 *  cd $APP && mkdir -p logs && .venv/bin/python pipeline.py recoleccion >> logs/cron.log 2>&1
+0 11 12-21 11 *  cd $APP && mkdir -p logs && .venv/bin/python pipeline.py correo      >> logs/cron.log 2>&1
+0 23 15    11 *  cd $APP && bash automatizacion/archivar_pruebas.sh                    >> pruebas_archivo.log 2>&1

@@ -9,6 +9,9 @@ datos/*.csv
 reportes/
 correos/enviados/*
 !correos/enviados/.gitkeep
+logs/
+pruebas/
+pruebas_archivo.log
 
 # Python
 __pycache__/
